@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VideoJs</title>
+
+  <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+  <h1>Video JS</h1>
+
+  <video id="my-player" class="video-js vjs-big-play-centered" data-setup='{}'>
+    <!-- <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+    <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+    <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source> -->
+
+    <!-- <track kind="captions" src="captions.vtt" srclang="en" label="English" default>
+    <track kind="captions" src="captions2.vtt" srclang="id" label="indonesia"> -->
+
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="https://videojs.com/html5-video-support/" target="_blank" rel="noopener noreferrer">
+        supports HTML5 video
+      </a>
+    </p>
+  </video>
+
+  <!-- <img class="mute-btn" src="https://interaktif-kompas-id.azureedge.net/wp-content/uploads/2022/06/000_32B38RC-ok.jpg" alt=""> -->
+
+  <!-- unpkg : use the latest version of Video.js -->
+  <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+  <!-- https://github.com/brightcove/videojs-playlist -->
+  <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@5.0.0/dist/videojs-playlist.js"></script>
+  <!-- Main script -->
+  <script src="./main.js"></script>
+</body>
+</html>
