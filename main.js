@@ -2,48 +2,12 @@ var options = {
   preload: 'auto',
   controls: false,
   autoplay: 'muted',
-  width: '640px',
   crossorigin: "anonymous",
-  // playbackRates: [1, 1.25, 1.5, 2],
-  fluid: false, // contain with its parent
-  // navigationUI: 'hide',
+  fluid: true, // contain with its parent
   // aspectRatio: "16:9",
-  // nativeControlsForTouch: true,
-  // resizeManager: {
-  //   ResizeObserver: null
-  // },
-  controlBar: {
-    playToggle: {
-      replay: true
-    },
-    volumePanel: {
-      inline: true
-    },
-    // fullscreenToggle: true,
-    // playToggle: false,
-    // captionsButton: false,
-    // chaptersButton: false,            
-    // subtitlesButton: false,
-    // remainingTimeDisplay: false,
-    // progressControl: {
-    //   seekBar: true
-    // },
-    // fullscreenToggle: false,
-    // playbackRateMenuButton: false,
+  fullscreen: {
+    options: {navigationUI: 'hide'}
   }
-  // userActions: {
-    // hotkeys: {
-    //   muteKey: function(event) {
-    //     // disable mute key
-    //     console.log('muted');
-    //   },
-    //   fullscreenKey: function(event) {
-    //     // override fullscreen to trigger when pressing the v key
-    //     console.log('fullscreen');
-    //     return (event.which === 86);
-    //   }
-    // }
-  // }
 };
 
 // INITIALIZE PLAYER
@@ -51,14 +15,6 @@ var player = videojs('my-player', options)
 
 // set playlist 
 var samplePlaylist = [
-  // {
-  //   sources: [{
-  //       src: "//vjs.zencdn.net/v/oceans.mp4",
-  //       type: "video/mp4"
-  //   }],
-  //   poster: "",
-  //   textTracks:[{label: "Englesh", src:"captions.vtt", default: true }]
-  // },
   {
     sources: [{
       src: "./video/SampleVideo_1280x720_2mb.mp4",
@@ -70,7 +26,7 @@ var samplePlaylist = [
     //   type: 'image/jpeg',
     //   media: '(min-width: 400px;)'
     // }],
-    textTracks:[{label: "French", src:"captions2.vtt", default: true }]
+    textTracks:[{label: "French", src:"captions-1.vtt", manualCleanup: false, default: true }]
   },
   {
     sources: [{
@@ -78,7 +34,7 @@ var samplePlaylist = [
       type: "video/mp4"
     }],
     poster: "",
-    textTracks:[{label: "Englesh", src:"captions.vtt", default: true }]
+    textTracks:[{label: "English", src:"captions-2.vtt", manualCleanup: false, default: true }]
   },
   {
     sources: [{
@@ -86,12 +42,7 @@ var samplePlaylist = [
       type: "video/mp4"
     }],
     poster: "",
-    // thumbnail: [{
-    //   srcset: 'oceans.jpg',
-    //   type: 'image/jpeg',
-    //   media: '(min-width: 400px;)'
-    // }],
-    textTracks:[{label: "French", src:"captions2.vtt", default: true }]
+    textTracks:[{label: "French", src:"captions-3.vtt", manualCleanup: false, default: true }]
   }
 ]
 
@@ -109,31 +60,9 @@ player.on('click', () => {
     : player.pause()
 })
 
-// button example
-// var Button = videojs.getComponent('Button');
-// var button = new Button(player, {
-//   clickHandler: function(event) {
-//     videojs.log('Clicked');
-//   }
-// });
-
-// clickable component
-// var ClickableComponent = videojs.getComponent('ClickableComponent');
-// var oneButton = new ClickableComponent(player, {
-//   clickHandler: function(event) {
-//     videojs.log('Clicked');
-//   }
-// });
-
-// console.log(oneButton);
-
-// player.addChild(oneButton)
-
 // var test = new ClickableComponent(player)
 // var CloseButton = videojs.getComponent('CloseButton')
 // var close = new CloseButton(player)
-
-// console.log(test, 'test');
 
 // Get the Component base class from Video.js
 var Component = videojs.getComponent('Component');
@@ -145,6 +74,11 @@ var tracks = player.textTracks();
 var ClickableComponent = videojs.getComponent('ClickableComponent');
 var CueButton = new ClickableComponent(player, {
   clickHandler: function() {
+    // to make player still playin when component clicked
+    player.on('paused', () => {
+      player.play()
+    })
+
     // cek if cue active, then toggle between disabled and showing
     tracks[0].mode == 'disabled' 
       ? tracks[0].mode = 'showing'
@@ -171,10 +105,7 @@ var testButton1 = new Button(player, {
   className: 'vjs-dialog-choose-1 vjs-visible-text',
   controlText: 'Choose 1',
   clickHandler: function(event) {
-    videojs.log('Clicked 1');
     player.playlist.next();
-    // need to manually change index playlist video
-    console.log(player.playlist.currentItem(), 1);
     modal.close()
   }
 });
@@ -183,7 +114,6 @@ var testButton2 = new Button(player, {
   className: 'vjs-dialog-choose-2 vjs-visible-text',
   controlText: 'Choose 2',
   clickHandler: function(event) {
-    videojs.log('Clicked 2');
     player.playlist.previous();
     modal.close()
   }
@@ -204,23 +134,7 @@ var modal = new ModalDialog(player, {
 
 player.addChild(modal);
 
-// player.on('play', function() {
-//   modal.close();
-//   if (tracks[0]) if (tracks[0].mode = 'disabled') return tracks[0].mode = 'showing'
-// });
-
-// player.on('pause', function() {
-//   // if (player.currentTime() == player.duration()) {
-//     modal.open()
-//     modal.addChild(testButton1)
-//     modal.addChild(testButton2)
-//     console.log(player, 'paused');
-//     // when modal open disabled subtitles
-//   // }
-
-//   if (tracks[0].mode = 'showing') return tracks[0].mode = 'disabled'
-// })
-
+// When player end, cek if video are the last on index, if so turn off modal
 player.on('ended', () => {
   if (player.playlist.lastIndex() == player.playlist.currentIndex()) {
     if (modal.open()) {
@@ -231,10 +145,21 @@ player.on('ended', () => {
     modal.addChild(testButton1)
     modal.addChild(testButton2)
   }
-  if (tracks[0].mode = 'showing') tracks[0].mode = 'disabled'
+  
+  // when player ended close subtitle
+  if (tracks[0].mode == 'showing') {
+    tracks[0].mode = 'disabled'
+  }
+})
+
+player.on('play', () => {
+  if (tracks[0].mode == 'disabled') {
+    tracks[0].mode = 'showing'
+  }
 })
 
 modal.on('modalclose', () => {
+  // set cc on after user close modal or next video
   player.play()
 })
 

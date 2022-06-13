@@ -1,8 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
 .vjs-default-skin 
 .vjs-big-play-button {
   font-size: 2em;
   left: 50%;
   top: 50%;
+}
+
+.video-js {
+  height: 100% !important;
 }
 
 .video-js .vjs-cue-button {
@@ -46,38 +63,35 @@
   display: block;
 }
 
+
+/* Modal Settings */
 .vjs-modal-dialog-content {
   display: flex;
   width: 100%;
   flex-direction: row;
 }
 
+.vjs-modal-dialog.vjs-modal-dialog-btn-1.vjs-visible-text {
+  background: none !important;
+}
+
+.vjs-modal-dialog-description.vjs-control-text {
+  background-color: rgba(0,0,0, .8);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
 .vjs-control.vjs-button.vjs-dialog-choose-1,
 .vjs-control.vjs-button.vjs-dialog-choose-2 {
   cursor: pointer;
   flex-basis: 50%;
-}
-
-/* Cue or Captions Styling */
-/* .video-js .vjs-text-track-display > div {
-  bottom: 10em;
-} */
-.video-js .vjs-text-track-display > div > div > div{ 
-	font-size: 25px !important; 
-	line-height:33px !important;
-	padding: 5px !important;
-	/* background:transparent !important; */
-  background-color: rgba(0,0,0,.3);
-  border-radius: 4px;
-	text-shadow: 1px 1px 2px #000;
-	display: inline-block !important;
-  width: 70%;
+  background: rgba(0,0,0, .6)
 }
 
 .vjs-modal-dialog-btn-1 {
   width: 50% !important;
   height: 50% !important;
-  transform: translate(50%, 50%);
+  transform: translate(50%, 140%);
 }
 
 .vjs-modal-dialog-btn-1 > p {
@@ -91,8 +105,24 @@
 }
 
 .vjs-modal-dialog-btn-1 > .vjs-modal-dialog-content > .vjs-button {
-  border: 1px solid aliceblue;
   height: 50px;
   margin-top: 60px;
   border-radius: 8px;
 }
+
+/* Cue or Captions Styling */
+/* .video-js .vjs-text-track-display > div {
+  bottom: 10em;
+} */
+.video-js .vjs-text-track-display > div > div > div{ 
+	font-size: 25px !important; 
+	line-height:33px !important;
+	padding: 5px !important;
+	/* background:transparent !important; */
+  background-color: rgba(0,0,0,.3) !important;
+  border-radius: 4px !important;
+	text-shadow: 1px 1px 2px #000;
+	display: inline-block !important;
+  width: 70%;
+}
+
