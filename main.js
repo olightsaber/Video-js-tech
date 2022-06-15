@@ -54,11 +54,11 @@ player.playlist(samplePlaylist)
 
 // Set all surface of player beside menu as play/pause toggle button
 let videoPlayer = document.querySelector('#my-player_html5_api')
-player.on('click', () => {
-  player.paused()
-    ? player.play() 
-    : player.pause()
-})
+// player.on('click', () => {
+//   player.paused()
+//     ? player.play() 
+//     : player.pause()
+// })
 
 // var test = new ClickableComponent(player)
 // var CloseButton = videojs.getComponent('CloseButton')
@@ -73,19 +73,26 @@ var tracks = player.textTracks();
 // The videojs.extend function can be used instead of ES6 classes.
 var ClickableComponent = videojs.getComponent('ClickableComponent');
 var CueButton = new ClickableComponent(player, {
+  className: 'vjs-cue-button vjs-cue-on',
   clickHandler: function() {
-    // to make player still playin when component clicked
-    player.on('paused', () => {
-      player.play()
-    })
-
     // cek if cue active, then toggle between disabled and showing
     tracks[0].mode == 'disabled' 
       ? tracks[0].mode = 'showing'
       : tracks[0].mode = 'disabled'
+
+    let el = videojs.dom.$(".vjs-cue-on")
+    
+    if (videojs.dom.hasClass(el, "vjs-cue-on")) {
+      videojs.dom.toggleClass(el, "vjs-cue-off")
+    } else {
+      videojs.dom.toggleClass(el, "vjs-cue-on")
+    }
+
+    // to make player still playin when component clicked
+    player.on('paused', () => {
+      player.play()
+    })
   },
-  controlText: 'CC',
-  className: 'vjs-cue-button'
 })
 
 // Register the component with Video.js, so it can be used in players.

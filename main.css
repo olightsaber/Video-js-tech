@@ -23,7 +23,7 @@ body {
 }
 
 .video-js .vjs-cue-button {
-  background: url('./assets/cc-icon.png') no-repeat center center;
+  /* background: url('./assets/cc-icon.png') no-repeat center center; */
   background-size: contain;
   display: none;
   position: absolute;
@@ -126,3 +126,11 @@ body {
   width: 70%;
 }
 
+
+.vjs-cue-on {
+  background: url('http://tutur-visual.ap.ngrok.io/wp-content/uploads/2022/06/hut_57_cc_icon.png') no-repeat center center !important;
+}
+
+.vjs-cue-off {
+  background: url('http://tutur-visual.ap.ngrok.io/wp-content/uploads/2022/06/hut_57_caps_off_icon.png') no-repeat center center !important;
+}
